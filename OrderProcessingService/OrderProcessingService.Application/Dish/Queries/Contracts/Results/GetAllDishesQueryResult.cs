@@ -1,3 +1,3 @@
 namespace OrderProcessingService.Application.Dish.Queries.Contracts.Results;
 
-public record GetAllDishesQueryResult(Models.Dish[] Dishes);
+public sealed record GetAllDishesQueryResult(Domain.Abstractions.Models.Dish[] Dishes);

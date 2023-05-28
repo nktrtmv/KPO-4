@@ -1,5 +1,5 @@
-using OrderProcessingService.Application.Order.Models;
+using OrderProcessingService.Domain.Abstractions.Models;
 
 namespace OrderProcessingService.Application.Order.Queries.Contracts.Results;
 
-public record GetMenuQueryResult(SlimDish[] Menu);
+public sealed record GetMenuQueryResult(SlimDish[] Menu);

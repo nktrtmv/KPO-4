@@ -1,3 +1,3 @@
 namespace OrderProcessingService.Application.Order.Queries.Contracts.Results;
 
-public record GetOrderInfoQueryResult(string[] DishesNames);
+public sealed record GetOrderInfoQueryResult(string[] DishesNames, string Status);
