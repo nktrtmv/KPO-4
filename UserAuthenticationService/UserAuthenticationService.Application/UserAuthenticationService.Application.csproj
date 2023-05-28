@@ -7,4 +7,14 @@
         <RootNamespace>Application</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="12.0.1" />
+      <PackageReference Include="MediatR.Contracts" Version="2.0.1" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\UserAuthenticationService.Domain\UserAuthenticationService.Domain.csproj" />
+    </ItemGroup>
+
 </Project>
