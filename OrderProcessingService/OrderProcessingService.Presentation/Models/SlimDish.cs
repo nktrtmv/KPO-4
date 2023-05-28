@@ -1,6 +1,6 @@
 namespace OrderProcessingService.Presentation.Models;
 
-public record SlimDish(
+public sealed record SlimDish(
     string Name,
     string Description,
     decimal Price);

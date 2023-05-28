@@ -1,6 +1,6 @@
 namespace OrderProcessingService.Presentation.Models;
 
-public record Dish(
+public sealed record Dish(
     int Id,
     string Name,
     string Description,

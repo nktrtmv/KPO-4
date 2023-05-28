@@ -1,5 +1,6 @@
 namespace OrderProcessingService.Presentation.Models;
 
-public record DishQ(
+public abstract record DishQ(
     int Id,
+    decimal Price,
     int Quantity);
