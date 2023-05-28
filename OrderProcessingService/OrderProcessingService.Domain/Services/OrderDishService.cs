@@ -1,4 +1,6 @@
+using OrderProcessingService.Domain.Abstractions.Models;
 using OrderProcessingService.Domain.Abstractions.Services;
+using OrderProcessingService.Infrastructure.Abstractions.Entities;
 using OrderProcessingService.Infrastructure.Abstractions.Repositories;
 
 namespace OrderProcessingService.Domain.Services;
@@ -12,13 +14,24 @@ public sealed class OrderDishService : IOrderDishService
         _orderDishRepository = orderDishRepository;
     }
 
-    public Task Add()
+    public async Task AddDishes(int orderId, DishQ[] dishes, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        foreach (DishQ dishQ in dishes)
+        {
+            await _orderDishRepository.AddDish(
+                new OrderDishEntity
+                {
+                    OrderId = orderId,
+                    DishId = dishQ.Id,
+                    Quantity = dishQ.Quantity,
+                    Price = dishQ.Price
+                },
+                cancellationToken);
+        }
     }
 
-    public Task GetAll()
+    public async Task DeleteDishes(int[] ordersIds, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        await _orderDishRepository.DeleteDishes(ordersIds, cancellationToken);
     }
 }

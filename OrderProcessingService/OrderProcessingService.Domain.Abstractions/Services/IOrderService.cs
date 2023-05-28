@@ -1,11 +1,18 @@
 
+using OrderProcessingService.Domain.Abstractions.Models;
+
 namespace OrderProcessingService.Domain.Abstractions.Services;
 
 public interface IOrderService
 {
-    Task Create();
+    Task<int> CreateOrder(
+        int userId,
+        string? specialRequests,
+        DateTime createdAt,
+        DateTime updatedAt,
+        CancellationToken cancellationToken);
 
-    Task Process();
+    Task<int[]> ProcessAllOrders(DateTime now, CancellationToken cancellationToken);
 
-    Task Get();
+    Task<OrderInfo> GetOrderInfo(int orderId, CancellationToken cancellationToken);
 }

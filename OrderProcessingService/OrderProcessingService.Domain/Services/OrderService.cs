@@ -1,5 +1,7 @@
 
+using OrderProcessingService.Domain.Abstractions.Models;
 using OrderProcessingService.Domain.Abstractions.Services;
+using OrderProcessingService.Infrastructure.Abstractions.Entities;
 using OrderProcessingService.Infrastructure.Abstractions.Repositories;
 
 namespace OrderProcessingService.Domain.Services;
@@ -13,18 +15,33 @@ public sealed class OrderService : IOrderService
         _orderRepository = orderRepository;
     }
 
-    public async Task Create()
+    public async Task<int> CreateOrder(int userId, string? specialRequests, DateTime createdAt, DateTime updatedAt, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        int orderId = await _orderRepository.Create(
+            new OrderEntity
+            {
+                UserId = userId,
+                Status = "In Progress",
+                SpecialRequests = specialRequests!,
+                CreatedAt = createdAt,
+                UpdatedAt = updatedAt
+            },
+            cancellationToken);
+
+        return orderId;
     }
 
-    public Task Process()
+    public async Task<int[]> ProcessAllOrders(DateTime now, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        int[] ordersIds = await _orderRepository.CompleteAll(now, cancellationToken);
+
+        return ordersIds;
     }
 
-    public Task Get()
+    public async Task<OrderInfo> GetOrderInfo(int orderId, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        Infrastructure.Abstractions.Models.OrderInfo info = await _orderRepository.GetInfo(orderId, cancellationToken);
+
+        return new OrderInfo(info.DishesNames, info.Status);
     }
 }
