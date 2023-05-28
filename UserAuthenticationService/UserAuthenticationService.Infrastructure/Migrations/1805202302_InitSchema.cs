@@ -7,16 +7,16 @@ public class InitSchema : Migration
 {
     public override void Up()
     {
-        Create.Table("user")
+        Create.Table("users")
             .WithColumn("id").AsInt32().PrimaryKey().Identity()
             .WithColumn("username").AsString().NotNullable().Unique()
             .WithColumn("email").AsString().NotNullable().Unique()
-            .WithColumn("password_hash").AsDouble().NotNullable()
+            .WithColumn("password_hash").AsString().NotNullable()
             .WithColumn("role").AsString().NotNullable()
             .WithColumn("created_at").AsDateTime().NotNullable()
             .WithColumn("updated_at").AsDateTime().NotNullable();
 
-        Create.Table("session")
+        Create.Table("sessions")
             .WithColumn("id").AsInt32().PrimaryKey().Identity()
             .WithColumn("user_id").AsInt32().NotNullable()
             .WithColumn("session_token").AsString().NotNullable()
@@ -25,7 +25,7 @@ public class InitSchema : Migration
 
     public override void Down()
     {
-        Delete.Table("user");
-        Delete.Table("session");
+        Delete.Table("users");
+        Delete.Table("sessions");
     }
 }

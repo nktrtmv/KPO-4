@@ -15,7 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\UserAuthenticationService.Domain.Abstractions\UserAuthenticationService.Domain.Abstractions.csproj" />
-      <ProjectReference Include="..\UserAuthenticationService.Domain\UserAuthenticationService.Domain.Abstractions.csproj" />
+      <ProjectReference Include="..\UserAuthenticationService.Domain\UserAuthenticationService.Domain.csproj" />
     </ItemGroup>
 
 </Project>

@@ -2,7 +2,6 @@ using Application.Extensions;
 
 using FluentValidation.AspNetCore;
 
-using UserAuthenticationService.Domain.Abstractions.Extensions;
 using UserAuthenticationService.NamingPolicies;
 using UserAuthenticationService.Infrastructure.Extensions;
 

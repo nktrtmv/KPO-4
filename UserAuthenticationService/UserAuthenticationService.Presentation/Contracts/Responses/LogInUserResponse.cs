@@ -1,3 +1,3 @@
 namespace UserAuthenticationService.Contracts.Responses;
 
-public record LogInUserResponse();
+public sealed record LogInUserResponse(string Message);

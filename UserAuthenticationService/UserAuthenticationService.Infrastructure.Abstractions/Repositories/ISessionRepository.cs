@@ -1,8 +1,10 @@
+using UserAuthenticationService.Infrastructure.Abstractions.Entities;
+
 namespace UserAuthenticationService.Infrastructure.Abstractions.Repositories;
 
 public interface ISessionRepository : IDbRepository
 {
-    Task LogIn();
+    Task Upsert(SessionEntity entity, CancellationToken cancellationToken);
 
-    Task LogOut();
+    Task<DateTime> GetUserLogTime(int userId, CancellationToken cancellationToken);
 }

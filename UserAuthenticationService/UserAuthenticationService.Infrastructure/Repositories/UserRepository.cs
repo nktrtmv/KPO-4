@@ -24,12 +24,12 @@ public sealed class UserRepository : BaseRepository, IUserRepository
 
         var sqlParams = new
         {
-            username = entity.Username,
-            email = entity.Email,
-            password_hash = entity.PasswordHash,
-            role = entity.Role,
-            created_at = entity.CreatedAt,
-            updated_at = entity.UpdatedAt
+            Username = entity.Username,
+            Email = entity.Email,
+            PasswordHash = entity.PasswordHash,
+            Role = entity.Role,
+            CreatedAt = entity.CreatedAt,
+            UpdatedAt = entity.UpdatedAt
         };
 
         await connection.ExecuteAsync(
@@ -39,19 +39,18 @@ public sealed class UserRepository : BaseRepository, IUserRepository
                 cancellationToken: cancellationToken));
     }
 
-    public async Task<UserEntity> Query(string email, string passwordHash, CancellationToken cancellationToken)
+    public async Task<UserEntity> Query(string email, CancellationToken cancellationToken)
     {
         await using NpgsqlConnection connection = await GetAndOpenConnection();
 
         var sqlParams = new
         {
-            email,
-            password_hash = passwordHash
+            Email = email
         };
 
         IEnumerable<UserEntity>? user = await connection.QueryAsync<UserEntity>(
             new CommandDefinition(
-                UserRepositoryQueries.Insert,
+                UserRepositoryQueries.Get,
                 sqlParams,
                 cancellationToken: cancellationToken));
 

@@ -5,7 +5,7 @@ namespace UserAuthenticationService.Infrastructure.Repositories;
 internal static class UserRepositoryQueries
 {
     internal static string Insert => @"
-INSERT INTO user
+INSERT INTO users
 (
     username,
     email,
@@ -16,16 +16,16 @@ INSERT INTO user
 )
 VALUES 
 (
-    @username,
-    @email,
-    @password_hash,
-    @role,
-    @created_at,
-    @updated_at
+    @Username,
+    @Email,
+    @PasswordHash,
+    @Role,
+    @CreatedAt,
+    @UpdatedAt
 )
 ";
 
     internal static string Get => @"
-select id, username, email, password_hash, role, created_at updated_at from user where email = @email, password_hash = @password_hash
+select id, username, email, password_hash, role, created_at, updated_at from users where email = @Email
 ";
 }

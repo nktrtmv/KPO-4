@@ -1,9 +1,11 @@
+using System.Text;
+
 using Application.User.Commands.Contracts;
 using Application.User.Models;
 
 using MediatR;
 
-using UserAuthenticationService.Domain.Abstractions.Interfaces;
+using UserAuthenticationService.Domain.Abstractions.Services;
 
 namespace Application.User.Commands;
 
@@ -18,19 +20,23 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, R
 
     public async Task<RegisterUserResult> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
+        string passwordHash = Convert.ToBase64String(Encoding.UTF8.GetBytes(request.Password));
+
         try
         {
             await _userService.Add(
                 request.Username,
                 request.Email,
-                request.Password.GetHashCode().ToString(),
+                passwordHash,
                 request.Role,
                 DateTime.UtcNow,
                 DateTime.UtcNow,
                 cancellationToken);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            Console.WriteLine(ex);
+
             return new RegisterUserResult(false);
         }
 

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using UserAuthenticationService.Contracts.Requests;
 using UserAuthenticationService.Contracts.Responses;
+using UserAuthenticationService.Contracts.Validators;
 
 namespace UserAuthenticationService.Controllers;
 
@@ -28,16 +29,32 @@ public sealed class UserAuthenticationController : ControllerBase
         RegisterNewUserRequest request,
         CancellationToken token)
     {
-        var command = new RegisterUserCommand(
-            request.Username,
-            request.Email,
-            request.Password,
-            request.PasswordCopy,
-            request.Role);
+        try
+        {
+            RegisterNewUserValidator.ValidateEmail(request);
+            RegisterNewUserValidator.ValidatePassword(request);
 
-        RegisterUserResult result = await _mediator.Send(command, token);
+            var command = new RegisterUserCommand(
+                request.Username,
+                request.Email,
+                request.Password,
+                request.PasswordCopy,
+                request.Role);
 
-        return result.Success ? Ok(new RegisterNewUserResponse()) : BadRequest("Error, try to register new user again with another email");
+            RegisterUserResult result = await _mediator.Send(command, token);
+
+            return result.Success ? Ok(new RegisterNewUserResponse()) : BadRequest("Error, try to register new user again with another email");
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+
+            return BadRequest("Unexpected Error, try again");
+        }
     }
 
     [HttpPost("log-in")]
@@ -47,23 +64,19 @@ public sealed class UserAuthenticationController : ControllerBase
         LogInUserRequest request,
         CancellationToken token)
     {
-        var command = new LogInUserCommand(request.Email, request.Password);
-        LogInUserResult result = await _mediator.Send(command, token);
+        try
+        {
+            var command = new LogInUserCommand(request.Email, request.Password);
+            LogInUserResult result = await _mediator.Send(command, token);
 
-        return Ok();
-    }
-
-    [HttpPost("log-out")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LogOutUserResponse))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> LogOutUser(
-        LogOutUserRequest request,
-        CancellationToken token)
-    {
-        var command = new LogOutUserCommand(request.Email, request.Password);
-        LogOutUserResult result = await _mediator.Send(command, token);
-
-        return Ok();
+            return result.Success
+                ? Ok(new LogInUserResponse("success"))
+                : BadRequest("Cant log in this account, are you sure that you entered right email and password?");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest("Cant log in this account, are you sure that you entered right email and password?");
+        }
     }
 
     [HttpPost("info")]
@@ -75,13 +88,19 @@ public sealed class UserAuthenticationController : ControllerBase
     {
         try
         {
-            var query = new GetUserInfoQuery(request.Email, request.Password);
+            var query = new GetUserInfoQuery(request.Email);
             GetUserInfoResult result = await _mediator.Send(query, token);
 
             return Ok(new GetUserInfoResponse(result.Username, result.Email, result.Role));
         }
-        catch (Exception)
+        catch (ArgumentException ex)
         {
+            return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+
             return BadRequest("It seems like there is no such user");
         }
     }
