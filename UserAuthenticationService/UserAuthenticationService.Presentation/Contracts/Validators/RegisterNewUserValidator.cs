@@ -6,7 +6,7 @@ public static class RegisterNewUserValidator
 {
     public static void ValidateEmail(RegisterNewUserRequest request)
     {
-        if (request.Email.Contains('@') && (request.Email.Contains(".com") || request.Email.Contains(".ru")))
+        if (!(request.Email.Contains('@') && (request.Email.Contains(".com") || request.Email.Contains(".ru"))))
         {
             throw new ArgumentException("Entered email is invalid");
         }
@@ -14,7 +14,7 @@ public static class RegisterNewUserValidator
 
     public static void ValidatePassword(RegisterNewUserRequest request)
     {
-        if (request.Password == request.PasswordCopy)
+        if (request.Password != request.PasswordCopy)
         {
             throw new ArgumentException("Password is not equal to PasswordCopy");
         }

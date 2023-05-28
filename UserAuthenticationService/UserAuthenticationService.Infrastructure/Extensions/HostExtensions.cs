@@ -12,6 +12,7 @@ public static class HostExtensions
         using IServiceScope scope = app.Services.CreateScope();
         var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
         runner.MigrateUp();
+
         return app;
     }
 }

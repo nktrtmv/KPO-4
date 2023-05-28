@@ -1,3 +1,3 @@
-namespace Application.User.Models;
+namespace UserAuthenticationService.Application.User.Models;
 
 public sealed record LogInUserResult(bool Success);

@@ -6,6 +6,7 @@ using Npgsql;
 
 using UserAuthenticationService.Infrastructure.Abstractions.Entities;
 using UserAuthenticationService.Infrastructure.Abstractions.Repositories;
+using UserAuthenticationService.Infrastructure.Repositories.Abstractions;
 using UserAuthenticationService.Infrastructure.Settings;
 
 namespace UserAuthenticationService.Infrastructure.Repositories;
@@ -22,9 +23,9 @@ public sealed class SessionRepository : BaseRepository, ISessionRepository
 
         var sqlParams = new
         {
-            UserId = entity.UserId,
-            SessionToken = entity.SessionToken,
-            ExpiresAt = entity.ExpiresAt
+            entity.UserId,
+            entity.SessionToken,
+            entity.ExpiresAt
         };
 
         await connection.ExecuteAsync(

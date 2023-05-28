@@ -1,9 +1,6 @@
-using Application.Extensions;
-
-using FluentValidation.AspNetCore;
-
-using UserAuthenticationService.NamingPolicies;
+using UserAuthenticationService.Application.Extensions;
 using UserAuthenticationService.Infrastructure.Extensions;
+using UserAuthenticationService.NamingPolicies;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -13,13 +10,6 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(o => { o.CustomSchemaIds(x => x.FullName); });
-
-builder.Services.AddFluentValidation(
-    conf =>
-    {
-        conf.RegisterValidatorsFromAssembly(typeof(Program).Assembly);
-        conf.AutomaticValidationEnabled = true;
-    });
 
 builder.Services
     .AddApplication()

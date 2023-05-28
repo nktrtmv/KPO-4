@@ -1,5 +1,3 @@
-using Npgsql.Replication.PgOutput.Messages;
-
 namespace UserAuthenticationService.Infrastructure.Repositories;
 
 internal static class UserRepositoryQueries

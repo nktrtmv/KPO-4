@@ -1,19 +1,18 @@
 using System.Text;
 
-using Application.User.Commands.Contracts;
-using Application.User.Models;
-
 using MediatR;
 
+using UserAuthenticationService.Application.User.Commands.Contracts;
+using UserAuthenticationService.Application.User.Models;
 using UserAuthenticationService.Domain.Abstractions.Models;
 using UserAuthenticationService.Domain.Abstractions.Services;
 
-namespace Application.User.Commands;
+namespace UserAuthenticationService.Application.User.Commands;
 
 public class LogInUserCommandHandler : IRequestHandler<LogInUserCommand, LogInUserResult>
 {
-    private readonly IUserService _userService;
     private readonly ISessionService _sessionService;
+    private readonly IUserService _userService;
 
     public LogInUserCommandHandler(IUserService userService, ISessionService sessionService)
     {

@@ -20,4 +20,4 @@ services:
       - POSTGRES_USER=orders_user
       - POSTGRES_PASSWORD=orders_password
     ports:
-      - "4321:4321"
+      - "4321:5432"

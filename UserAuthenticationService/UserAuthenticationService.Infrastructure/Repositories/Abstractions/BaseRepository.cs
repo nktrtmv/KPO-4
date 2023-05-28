@@ -5,7 +5,7 @@ using Npgsql;
 using UserAuthenticationService.Infrastructure.Abstractions.Repositories;
 using UserAuthenticationService.Infrastructure.Settings;
 
-namespace UserAuthenticationService.Infrastructure.Repositories;
+namespace UserAuthenticationService.Infrastructure.Repositories.Abstractions;
 
 public abstract class BaseRepository : IDbRepository
 {
@@ -14,15 +14,6 @@ public abstract class BaseRepository : IDbRepository
     protected BaseRepository(DalOptions dalSettings)
     {
         _dalSettings = dalSettings;
-    }
-
-    protected async Task<NpgsqlConnection> GetAndOpenConnection()
-    {
-        var connection = new NpgsqlConnection(_dalSettings.ConnectionString);
-        await connection.OpenAsync();
-        await connection.ReloadTypesAsync();
-
-        return connection;
     }
 
     public TransactionScope CreateTransactionScope(IsolationLevel level = IsolationLevel.ReadCommitted)
@@ -35,5 +26,14 @@ public abstract class BaseRepository : IDbRepository
                 Timeout = TimeSpan.FromSeconds(5)
             },
             TransactionScopeAsyncFlowOption.Enabled);
+    }
+
+    protected async Task<NpgsqlConnection> GetAndOpenConnection()
+    {
+        var connection = new NpgsqlConnection(_dalSettings.ConnectionString);
+        await connection.OpenAsync();
+        await connection.ReloadTypesAsync();
+
+        return connection;
     }
 }

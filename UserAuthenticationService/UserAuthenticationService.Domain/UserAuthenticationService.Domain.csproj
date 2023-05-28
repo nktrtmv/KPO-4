@@ -7,14 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AutoFixture" Version="4.17.0" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
-      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
+        <PackageReference Include="AutoFixture" Version="4.17.0"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0"/>
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\UserAuthenticationService.Domain.Abstractions\UserAuthenticationService.Domain.Abstractions.csproj" />
-      <ProjectReference Include="..\UserAuthenticationService.Infrastructure.Abstractions\UserAuthenticationService.Infrastructure.Abstractions.csproj" />
+        <ProjectReference Include="..\UserAuthenticationService.Domain.Abstractions\UserAuthenticationService.Domain.Abstractions.csproj"/>
+        <ProjectReference Include="..\UserAuthenticationService.Infrastructure.Abstractions\UserAuthenticationService.Infrastructure.Abstractions.csproj"/>
     </ItemGroup>
 
 </Project>

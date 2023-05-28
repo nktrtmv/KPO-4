@@ -11,8 +11,6 @@ using UserAuthenticationService.Domain.Abstractions.Services;
 using UserAuthenticationService.Infrastructure.Abstractions.Entities;
 using UserAuthenticationService.Infrastructure.Abstractions.Repositories;
 
-using DateTime = System.DateTime;
-
 namespace UserAuthenticationService.Domain.Services;
 
 public sealed class SessionService : ISessionService
@@ -68,20 +66,20 @@ public sealed class SessionService : ISessionService
         var claims = new[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, "random_user"),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 
         DateTime expirationTime = DateTime.UtcNow.AddHours(1);
 
         var token = new JwtSecurityToken(
-            issuer: _fixture.Create<string>(),
-            audience: _fixture.Create<string>(),
-            claims: claims,
+            _fixture.Create<string>(),
+            _fixture.Create<string>(),
+            claims,
             expires: expirationTime,
             signingCredentials: credentials);
 
         var tokenHandler = new JwtSecurityTokenHandler();
-        var tokenString = tokenHandler.WriteToken(token);
+        string? tokenString = tokenHandler.WriteToken(token);
 
         return (tokenString, expirationTime);
     }

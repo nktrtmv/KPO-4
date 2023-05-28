@@ -1,8 +1,8 @@
-using Application.User.Models;
-
 using MediatR;
 
-namespace Application.User.Commands.Contracts;
+using UserAuthenticationService.Application.User.Models;
+
+namespace UserAuthenticationService.Application.User.Commands.Contracts;
 
 public sealed record LogInUserCommand(
     string Email,

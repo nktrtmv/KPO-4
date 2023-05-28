@@ -4,7 +4,7 @@ using UserAuthenticationService.Extensions;
 
 namespace UserAuthenticationService.NamingPolicies;
 
-public class SnakeCaseNamingPolicy : JsonNamingPolicy
+public sealed class SnakeCaseNamingPolicy : JsonNamingPolicy
 {
     public override string ConvertName(string name)
     {

@@ -1,9 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 
-using UserAuthenticationService.Domain.Abstractions.Services;
-using UserAuthenticationService.Domain.Services;
+using OrderProcessingService.Domain.Abstractions.Services;
+using OrderProcessingService.Domain.Services;
 
-namespace UserAuthenticationService.Application.Extensions;
+namespace OrderProcessingService.Application.Extensions;
 
 public static class ServiceCollectionExtensions
 {
