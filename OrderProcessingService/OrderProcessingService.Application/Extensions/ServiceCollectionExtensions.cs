@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using OrderProcessingService.Domain.Abstractions.Services;
 using OrderProcessingService.Domain.Services;
+using OrderProcessingService.Infrastructure.Abstractions.Repositories;
 
 namespace OrderProcessingService.Application.Extensions;
 
@@ -16,8 +17,9 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddDomain(this IServiceCollection services)
     {
-        services.AddTransient<IUserService, UserService>();
-        services.AddTransient<ISessionService, SessionService>();
+        services.AddTransient<IDishService, DishService>();
+        services.AddTransient<IOrderService, OrderService>();
+        services.AddTransient<IOrderDishService, OrderDishService>();
 
         return services;
     }
