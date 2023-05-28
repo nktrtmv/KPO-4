@@ -7,7 +7,7 @@ using Npgsql;
 using Npgsql.NameTranslation;
 using Npgsql.TypeMapping;
 
-using UserAuthenticationService.Infrastructure.Entities;
+using UserAuthenticationService.Infrastructure.Abstractions.Entities;
 
 namespace UserAuthenticationService.Infrastructure.Settings;
 

@@ -1,3 +1,3 @@
 namespace Application.User.Models;
 
-public sealed record RegisterUserResult();
+public sealed record RegisterUserResult(bool Success);

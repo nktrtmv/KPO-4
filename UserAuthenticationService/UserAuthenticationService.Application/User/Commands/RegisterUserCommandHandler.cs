@@ -3,12 +3,37 @@ using Application.User.Models;
 
 using MediatR;
 
+using UserAuthenticationService.Domain.Abstractions.Interfaces;
+
 namespace Application.User.Commands;
 
 public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, RegisterUserResult>
 {
-    public Task<RegisterUserResult> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+    private readonly IUserService _userService;
+
+    public RegisterUserCommandHandler(IUserService userService)
     {
-        throw new NotImplementedException();
+        _userService = userService;
+    }
+
+    public async Task<RegisterUserResult> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            await _userService.Add(
+                request.Username,
+                request.Email,
+                request.Password.GetHashCode().ToString(),
+                request.Role,
+                DateTime.UtcNow,
+                DateTime.UtcNow,
+                cancellationToken);
+        }
+        catch (Exception)
+        {
+            return new RegisterUserResult(false);
+        }
+
+        return new RegisterUserResult(true);
     }
 }

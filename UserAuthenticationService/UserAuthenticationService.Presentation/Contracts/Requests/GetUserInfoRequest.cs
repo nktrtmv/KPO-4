@@ -1,3 +1,3 @@
 namespace UserAuthenticationService.Contracts.Requests;
 
-public sealed record GetUserInfoRequest(string Email);
+public sealed record GetUserInfoRequest(string Email, string Password);

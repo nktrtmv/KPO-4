@@ -37,7 +37,7 @@ public sealed class UserAuthenticationController : ControllerBase
 
         RegisterUserResult result = await _mediator.Send(command, token);
 
-        return Ok();
+        return result.Success ? Ok(new RegisterNewUserResponse()) : BadRequest("Error, try to register new user again with another email");
     }
 
     [HttpPost("log-in")]
@@ -73,9 +73,16 @@ public sealed class UserAuthenticationController : ControllerBase
         GetUserInfoRequest request,
         CancellationToken token)
     {
-        var query = new GetUserInfoQuery(request.Email);
-        GetUserInfoResult result = await _mediator.Send(query, token);
+        try
+        {
+            var query = new GetUserInfoQuery(request.Email, request.Password);
+            GetUserInfoResult result = await _mediator.Send(query, token);
 
-        return Ok();
+            return Ok(new GetUserInfoResponse(result.Username, result.Email, result.Role));
+        }
+        catch (Exception)
+        {
+            return BadRequest("It seems like there is no such user");
+        }
     }
 }

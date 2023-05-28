@@ -2,7 +2,7 @@ using System.Transactions;
 
 using Npgsql;
 
-using UserAuthenticationService.Infrastructure.Repositories.Interfaces;
+using UserAuthenticationService.Infrastructure.Abstractions.Repositories;
 using UserAuthenticationService.Infrastructure.Settings;
 
 namespace UserAuthenticationService.Infrastructure.Repositories;

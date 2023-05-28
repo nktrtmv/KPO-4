@@ -5,7 +5,7 @@ using MediatR;
 namespace Application.User.Commands.Contracts;
 
 public sealed record RegisterUserCommand(
-    string UserName,
+    string Username,
     string Email,
     string Password,
     string PasswordCopy,

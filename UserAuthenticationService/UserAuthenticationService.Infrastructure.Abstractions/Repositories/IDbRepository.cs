@@ -1,6 +1,6 @@
 using System.Transactions;
 
-namespace UserAuthenticationService.Infrastructure.Repositories.Interfaces;
+namespace UserAuthenticationService.Infrastructure.Abstractions.Repositories;
 
 public interface IDbRepository
 {

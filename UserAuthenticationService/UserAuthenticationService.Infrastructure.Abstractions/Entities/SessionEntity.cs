@@ -1,4 +1,4 @@
-namespace UserAuthenticationService.Infrastructure.Entities;
+namespace UserAuthenticationService.Infrastructure.Abstractions.Entities;
 
 public sealed record SessionEntity(
     int Id,

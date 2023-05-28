@@ -1,3 +1,3 @@
 namespace UserAuthenticationService.Contracts.Responses;
 
-public record GetUserInfoResponse();
+public sealed record GetUserInfoResponse(string Username, string Email, string Role);

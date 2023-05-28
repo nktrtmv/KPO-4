@@ -4,4 +4,4 @@ using MediatR;
 
 namespace Application.User.Queries.Contracts;
 
-public sealed record GetUserInfoQuery(string Email) : IRequest<GetUserInfoResult>;
+public sealed record GetUserInfoQuery(string Email, string Password) : IRequest<GetUserInfoResult>;

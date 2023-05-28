@@ -1,8 +1,10 @@
+using UserAuthenticationService.Infrastructure.Abstractions.Entities;
+
 namespace UserAuthenticationService.Infrastructure.Abstractions.Repositories;
 
-public interface IUserRepository
+public interface IUserRepository : IDbRepository
 {
-    Task Add();
+    Task Add(UserEntity entity, CancellationToken cancellationToken);
 
-    Task Get();
+    Task<UserEntity> Query(string email, string passwordHash, CancellationToken cancellationToken);
 }
