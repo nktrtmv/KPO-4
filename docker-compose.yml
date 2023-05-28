@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  users_database:
+    container_name: users_database
+    restart: always
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=users_database
+      - POSTGRES_USER=users_user
+      - POSTGRES_PASSWORD=users_password
+    ports:
+      - "5432:5432"
+
+  orders_database:
+    container_name: orders_database
+    restart: always
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=orders_database
+      - POSTGRES_USER=orders_user
+      - POSTGRES_PASSWORD=orders_password
+    ports:
+      - "4321:4321"
