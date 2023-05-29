@@ -34,4 +34,11 @@ public sealed class OrderDishService : IOrderDishService
     {
         await _orderDishRepository.DeleteDishes(ordersIds, cancellationToken);
     }
+
+    public async Task<int[]> GetDishesIds(int orderId, CancellationToken cancellationToken)
+    {
+        var ids = await _orderDishRepository.GetDishesIds(orderId, cancellationToken);
+
+        return ids;
+    }
 }

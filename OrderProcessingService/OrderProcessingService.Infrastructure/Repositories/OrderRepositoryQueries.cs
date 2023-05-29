@@ -2,17 +2,27 @@ namespace OrderProcessingService.Infrastructure.Repositories;
 
 internal static class OrderRepositoryQueries
 {
-    internal static string Upsert => @"
-WITH upsert AS (
-    UPDATE sessions
-    SET expires_at = @ExpiresAt
-    WHERE user_id = @UserId
-    RETURNING *
+    internal static string Insert => @"
+INSERT INTO orders
+(
+    user_id,
+    status,
+    special_requests,
+    created_at,
+    updated_at
 )
-INSERT INTO sessions (user_id, session_token, expires_at)
-SELECT @UserId, @SessionToken, @ExpiresAt
-WHERE NOT EXISTS (SELECT 1 FROM upsert);
+VALUES 
+(
+    @UserId,
+    @Status,
+    @SpecialRequests,
+    @CreatedAt,
+    @UpdatedAt
+)
+Returning id
 ";
 
-    internal static string Query => "select id, user_id, session_token, expires_at from sessions where user_id = @UserId";
+    internal static string UpdateAll => "update orders set updated_at = @UpdatedAt, status = @Status returning id;";
+
+    internal static string Query => "select id, user_id, status, special_requests, created_at, updated_at from orders where id = @Id";
 }

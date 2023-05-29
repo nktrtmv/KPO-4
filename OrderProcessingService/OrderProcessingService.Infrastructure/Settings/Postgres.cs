@@ -32,15 +32,14 @@ public static class Postgres
     /// </summary>
     public static void AddMigrations(IServiceCollection services)
     {
+        const string conn = "User ID=orders_user;Password=orders_password;Host=localhost;Port=4321;Database=orders_database;Pooling=true;";
         services.AddFluentMigratorCore()
             .ConfigureRunner(
                 rb => rb.AddPostgres()
                     .WithGlobalConnectionString(
                         s =>
                         {
-                            var cfg = s.GetRequiredService<IOptions<DalOptions>>();
-
-                            return cfg.Value.ConnectionString;
+                            return conn;
                         })
                     .ScanIn(typeof(Postgres).Assembly)
                     .For.Migrations())

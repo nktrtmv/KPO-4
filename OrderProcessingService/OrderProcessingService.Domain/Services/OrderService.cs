@@ -38,10 +38,10 @@ public sealed class OrderService : IOrderService
         return ordersIds;
     }
 
-    public async Task<OrderInfo> GetOrderInfo(int orderId, CancellationToken cancellationToken)
+    public async Task<string> GetOrderStatus(int orderId, CancellationToken cancellationToken)
     {
-        Infrastructure.Abstractions.Models.OrderInfo info = await _orderRepository.GetInfo(orderId, cancellationToken);
+        string info = await _orderRepository.GetStatus(orderId, cancellationToken);
 
-        return new OrderInfo(info.DishesNames, info.Status);
+        return info;
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using Npgsql;
 
 using OrderProcessingService.Infrastructure.Abstractions.Entities;
+using OrderProcessingService.Infrastructure.Abstractions.Models;
 using OrderProcessingService.Infrastructure.Abstractions.Repositories;
 using OrderProcessingService.Infrastructure.Repositories.Abstractions;
 using OrderProcessingService.Infrastructure.Settings;
@@ -17,41 +18,59 @@ public sealed class OrderDishRepository : BaseRepository, IOrderDishRepository
     {
     }
 
-    // public async Task Upsert(SessionEntity entity, CancellationToken cancellationToken)
-    // {
-    //     await using NpgsqlConnection connection = await GetAndOpenConnection();
-    //
-    //     var sqlParams = new
-    //     {
-    //         UserId = entity.UserId,
-    //         SessionToken = entity.SessionToken,
-    //         ExpiresAt = entity.ExpiresAt
-    //     };
-    //
-    //     await connection.ExecuteAsync(
-    //         new CommandDefinition(
-    //             OrderRepositoryQueries.Upsert,
-    //             sqlParams,
-    //             cancellationToken: cancellationToken));
-    // }
-    //
-    // public async Task<DateTime> GetUserLogTime(int userId, CancellationToken cancellationToken)
-    // {
-    //     var sqlParams = new
-    //     {
-    //         UserId = userId
-    //     };
-    //
-    //     await using NpgsqlConnection connection = await GetAndOpenConnection();
-    //
-    //     IEnumerable<SessionEntity>? sessions = await connection.QueryAsync<SessionEntity>(
-    //         new CommandDefinition(
-    //             OrderRepositoryQueries.Query,
-    //             sqlParams,
-    //             cancellationToken: cancellationToken));
-    //
-    //     SessionEntity session = sessions.Single();
-    //
-    //     return session.ExpiresAt;
-    // }
+    public async Task AddDish(OrderDishEntity orderDish, CancellationToken cancellationToken)
+    {
+        await using NpgsqlConnection connection = await GetAndOpenConnection();
+
+        var sqlParams = new
+        {
+            OrderId = orderDish.OrderId,
+            DishId = orderDish.DishId,
+            Quantity = orderDish.Quantity,
+            Price = orderDish.Price
+        };
+
+        await connection.ExecuteAsync(
+            new CommandDefinition(
+                OrderDishRepositoryQueries.Insert,
+                sqlParams,
+                cancellationToken: cancellationToken));
+    }
+
+    public async Task DeleteDishes(IEnumerable<int> ordersIds, CancellationToken cancellationToken)
+    {
+        await using NpgsqlConnection connection = await GetAndOpenConnection();
+
+        foreach (int orderId in ordersIds)
+        {
+            var sqlParams = new
+            {
+                OrderId = orderId
+            };
+
+            await connection.ExecuteAsync(
+                new CommandDefinition(
+                    OrderDishRepositoryQueries.Delete,
+                    sqlParams,
+                    cancellationToken: cancellationToken));
+        }
+    }
+
+    public async Task<int[]> GetDishesIds(int orderId, CancellationToken cancellationToken)
+    {
+        await using NpgsqlConnection connection = await GetAndOpenConnection();
+
+        var sqlParams = new
+        {
+            OrderId = orderId
+        };
+
+        IEnumerable<int>? ids = await connection.QueryAsync<int>(
+            new CommandDefinition(
+                OrderDishRepositoryQueries.QueryDishesIds,
+                sqlParams,
+                cancellationToken: cancellationToken));
+
+        return ids.ToArray();
+    }
 }

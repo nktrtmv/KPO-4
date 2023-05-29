@@ -3,27 +3,27 @@ namespace OrderProcessingService.Infrastructure.Repositories;
 internal static class DishRepositoryQueries
 {
     internal static string Insert => @"
-INSERT INTO users
+INSERT INTO dishes
 (
-    username,
-    email,
-    password_hash,
-    role,
-    created_at,
-    updated_at
+    name,
+    description,
+    price,
+    quantity
 )
 VALUES 
 (
-    @Username,
-    @Email,
-    @PasswordHash,
-    @Role,
-    @CreatedAt,
-    @UpdatedAt
+    @Name,
+    @Description,
+    @Price,
+    @Quantity
 )
 ";
 
-    internal static string Get => @"
-select id, username, email, password_hash, role, created_at, updated_at from users where email = @Email
-";
+    internal static string IncreaseDishQuantity => "update dishes set quantity = quantity + @IncreaseValue where id = @DishId";
+
+    internal static string DecreaseDishQuantity => "update dishes set quantity = quantity - 1 where id = @DishId";
+
+    internal static string Delete => "delete from dishes where id = @DishId";
+
+    internal static string QueryAll => "select id, name, description, price, quantity from dishes";
 }

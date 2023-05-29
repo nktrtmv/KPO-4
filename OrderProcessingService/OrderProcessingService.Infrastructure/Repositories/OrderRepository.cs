@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using Npgsql;
 
 using OrderProcessingService.Infrastructure.Abstractions.Entities;
+using OrderProcessingService.Infrastructure.Abstractions.Models;
 using OrderProcessingService.Infrastructure.Abstractions.Repositories;
 using OrderProcessingService.Infrastructure.Repositories.Abstractions;
 using OrderProcessingService.Infrastructure.Settings;
@@ -17,41 +18,64 @@ public sealed class OrderRepository : BaseRepository, IOrderRepository
     {
     }
 
-    // public async Task Upsert(SessionEntity entity, CancellationToken cancellationToken)
-    // {
-    //     await using NpgsqlConnection connection = await GetAndOpenConnection();
-    //
-    //     var sqlParams = new
-    //     {
-    //         UserId = entity.UserId,
-    //         SessionToken = entity.SessionToken,
-    //         ExpiresAt = entity.ExpiresAt
-    //     };
-    //
-    //     await connection.ExecuteAsync(
-    //         new CommandDefinition(
-    //             OrderRepositoryQueries.Upsert,
-    //             sqlParams,
-    //             cancellationToken: cancellationToken));
-    // }
-    //
-    // public async Task<DateTime> GetUserLogTime(int userId, CancellationToken cancellationToken)
-    // {
-    //     var sqlParams = new
-    //     {
-    //         UserId = userId
-    //     };
-    //
-    //     await using NpgsqlConnection connection = await GetAndOpenConnection();
-    //
-    //     IEnumerable<SessionEntity>? sessions = await connection.QueryAsync<SessionEntity>(
-    //         new CommandDefinition(
-    //             OrderRepositoryQueries.Query,
-    //             sqlParams,
-    //             cancellationToken: cancellationToken));
-    //
-    //     SessionEntity session = sessions.Single();
-    //
-    //     return session.ExpiresAt;
-    // }
+    public async Task<int> Create(OrderEntity order, CancellationToken cancellationToken)
+    {
+        await using NpgsqlConnection connection = await GetAndOpenConnection();
+
+        var sqlParams = new
+        {
+            UserId = order.UserId,
+            Status = order.Status,
+            SpecialRequests = order.SpecialRequests,
+            CreatedAt = order.CreatedAt,
+            UpdatedAt = order.UpdatedAt
+        };
+
+        int id = await connection.ExecuteAsync(
+            new CommandDefinition(
+                OrderRepositoryQueries.Insert,
+                sqlParams,
+                cancellationToken: cancellationToken));
+
+        return id;
+    }
+
+    public async Task<int[]> CompleteAll(DateTime now, CancellationToken cancellationToken)
+    {
+        await using NpgsqlConnection connection = await GetAndOpenConnection();
+
+        var sqlParams = new
+        {
+            UpdatedAt = now,
+            Status = "Completed"
+        };
+
+        IEnumerable<int> ordersIds = await connection.QueryAsync<int>(
+            new CommandDefinition(
+                OrderRepositoryQueries.UpdateAll,
+                sqlParams,
+                cancellationToken: cancellationToken));
+
+        return ordersIds.ToArray();
+    }
+
+    public async Task<string> GetStatus(int orderId, CancellationToken cancellationToken)
+    {
+        await using NpgsqlConnection connection = await GetAndOpenConnection();
+
+        var sqlParams = new
+        {
+            Id = orderId,
+        };
+
+        IEnumerable<OrderEntity>? orders = await connection.QueryAsync<OrderEntity>(
+            new CommandDefinition(
+                OrderRepositoryQueries.Query,
+                sqlParams,
+                cancellationToken: cancellationToken));
+
+        OrderEntity order = orders.Single();
+
+        return order.Status;
+    }
 }

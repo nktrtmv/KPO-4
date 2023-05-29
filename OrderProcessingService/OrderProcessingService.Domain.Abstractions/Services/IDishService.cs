@@ -17,5 +17,7 @@ public interface IDishService
 
     Task DeleteDish(int dishId, CancellationToken cancellationToken);
 
+    Task DeleteDishFromMenu(int dishId, CancellationToken cancellationToken);
+
     Task<SlimDish[]> GetMenu(CancellationToken cancellationToken);
 }

@@ -16,6 +16,6 @@ public class DeleteDishCommandHandler : IRequestHandler<DeleteDishCommand>
 
     public async Task Handle(DeleteDishCommand request, CancellationToken cancellationToken)
     {
-        await _dishService.DeleteDish(request.DishId, cancellationToken);
+        await _dishService.DeleteDishFromMenu(request.DishId, cancellationToken);
     }
 }

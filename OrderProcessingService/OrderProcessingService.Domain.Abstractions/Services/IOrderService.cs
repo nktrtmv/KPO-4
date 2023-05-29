@@ -1,4 +1,3 @@
-
 using OrderProcessingService.Domain.Abstractions.Models;
 
 namespace OrderProcessingService.Domain.Abstractions.Services;
@@ -14,5 +13,5 @@ public interface IOrderService
 
     Task<int[]> ProcessAllOrders(DateTime now, CancellationToken cancellationToken);
 
-    Task<OrderInfo> GetOrderInfo(int orderId, CancellationToken cancellationToken);
+    Task<string> GetOrderStatus(int orderId, CancellationToken cancellationToken);
 }

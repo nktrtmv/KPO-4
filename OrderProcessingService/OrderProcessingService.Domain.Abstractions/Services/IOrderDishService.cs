@@ -7,4 +7,6 @@ public interface IOrderDishService
     Task AddDishes(int orderId, DishQ[] dishes, CancellationToken cancellationToken);
 
     Task DeleteDishes(int[] ordersIds, CancellationToken cancellationToken);
+
+    Task<int[]> GetDishesIds(int orderId, CancellationToken cancellationToken);
 }

@@ -17,9 +17,9 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddDomain(this IServiceCollection services)
     {
-        services.AddTransient<IDishService, DishService>();
-        services.AddTransient<IOrderService, OrderService>();
-        services.AddTransient<IOrderDishService, OrderDishService>();
+        services.AddScoped<IDishService, DishService>();
+        services.AddScoped<IOrderService, OrderService>();
+        services.AddScoped<IOrderDishService, OrderDishService>();
 
         return services;
     }

@@ -1,6 +1,6 @@
 namespace OrderProcessingService.Infrastructure.Abstractions.Entities;
 
-public class DishEntity
+public sealed class DishEntity
 {
     public int Id { get; init; }
     public string Name { get; init; } = string.Empty;

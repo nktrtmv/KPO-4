@@ -55,6 +55,15 @@ public sealed class DishService : IDishService
     {
         using TransactionScope transaction = _dishRepository.CreateTransactionScope();
 
+        await _dishRepository.DecreaseDishQuantity(dishId, cancellationToken);
+
+        transaction.Complete();
+    }
+
+    public async Task DeleteDishFromMenu(int dishId, CancellationToken cancellationToken)
+    {
+        using TransactionScope transaction = _dishRepository.CreateTransactionScope();
+
         await _dishRepository.Delete(dishId, cancellationToken);
 
         transaction.Complete();

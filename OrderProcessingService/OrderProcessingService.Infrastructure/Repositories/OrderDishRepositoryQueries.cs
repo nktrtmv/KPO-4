@@ -2,17 +2,24 @@ namespace OrderProcessingService.Infrastructure.Repositories;
 
 internal static class OrderDishRepositoryQueries
 {
-    internal static string Upsert => @"
-WITH upsert AS (
-    UPDATE sessions
-    SET expires_at = @ExpiresAt
-    WHERE user_id = @UserId
-    RETURNING *
+    internal static string Insert => @"
+INSERT INTO orders_dishes
+(
+    order_id,
+    dish_id,
+    quantity,
+    price
 )
-INSERT INTO sessions (user_id, session_token, expires_at)
-SELECT @UserId, @SessionToken, @ExpiresAt
-WHERE NOT EXISTS (SELECT 1 FROM upsert);
+VALUES 
+(
+    @OrderId,
+    @DishId,
+    @Quantity,
+    @Price
+)
 ";
 
-    internal static string Query => "select id, user_id, session_token, expires_at from sessions where user_id = @UserId";
+    internal static string Delete => "delete from orders_dishes where order_id = @OrderId";
+
+    internal static string QueryDishesIds => "select dish_id from orders_dishes where order_id = @OrderId";
 }

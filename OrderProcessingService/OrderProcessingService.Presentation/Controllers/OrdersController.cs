@@ -1,6 +1,7 @@
 using MediatR;
 
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 using OrderProcessingService.Application.Order.Commands.Contracts.Requests;
@@ -84,6 +85,10 @@ public sealed class OrdersController : ControllerBase
             GetOrderInfoQueryResult result = await _mediator.Send(query, token);
 
             return Ok(new GetOrderInfoResponse(result.DishesNames, result.Status));
+        }
+        catch (ArgumentException ex)
+        {
+            return Ok(ex.Message);
         }
         catch
         {
