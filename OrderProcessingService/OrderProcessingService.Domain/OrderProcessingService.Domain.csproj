@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\OrderProcessingService.Domain.Abstractions\OrderProcessingService.Domain.Abstractions.csproj" />
+        <ProjectReference Include="..\OrderProcessingService.Infrastructure.Abstractions\OrderProcessingService.Infrastructure.Abstractions.csproj" />
+    </ItemGroup>
+
+</Project>

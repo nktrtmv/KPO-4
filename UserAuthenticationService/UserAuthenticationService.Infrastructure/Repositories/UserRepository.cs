@@ -6,6 +6,7 @@ using Npgsql;
 
 using UserAuthenticationService.Infrastructure.Abstractions.Entities;
 using UserAuthenticationService.Infrastructure.Abstractions.Repositories;
+using UserAuthenticationService.Infrastructure.Repositories.Abstractions;
 using UserAuthenticationService.Infrastructure.Settings;
 
 namespace UserAuthenticationService.Infrastructure.Repositories;
@@ -24,12 +25,12 @@ public sealed class UserRepository : BaseRepository, IUserRepository
 
         var sqlParams = new
         {
-            Username = entity.Username,
-            Email = entity.Email,
-            PasswordHash = entity.PasswordHash,
-            Role = entity.Role,
-            CreatedAt = entity.CreatedAt,
-            UpdatedAt = entity.UpdatedAt
+            entity.Username,
+            entity.Email,
+            entity.PasswordHash,
+            entity.Role,
+            entity.CreatedAt,
+            entity.UpdatedAt
         };
 
         await connection.ExecuteAsync(

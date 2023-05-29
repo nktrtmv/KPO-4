@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using UserAuthenticationService.Domain.Abstractions.Services;
 using UserAuthenticationService.Domain.Services;
 
-namespace Application.Extensions;
+namespace UserAuthenticationService.Application.Extensions;
 
 public static class ServiceCollectionExtensions
 {

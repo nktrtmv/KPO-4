@@ -7,30 +7,26 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\UserAuthenticationService.Infrastructure.Abstractions\UserAuthenticationService.Infrastructure.Abstractions.csproj" />
+        <ProjectReference Include="..\UserAuthenticationService.Infrastructure.Abstractions\UserAuthenticationService.Infrastructure.Abstractions.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Dapper" Version="2.0.123" />
-      <PackageReference Include="FluentMigrator" Version="3.3.2" />
-      <PackageReference Include="FluentMigrator.Runner" Version="3.3.2" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.1" />
-      <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
-      <PackageReference Include="Npgsql" Version="7.0.4" />
-      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
+        <PackageReference Include="Dapper" Version="2.0.123"/>
+        <PackageReference Include="FluentMigrator" Version="3.3.2"/>
+        <PackageReference Include="FluentMigrator.Runner" Version="3.3.2"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1"/>
+        <PackageReference Include="Npgsql" Version="7.0.4"/>
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Repositories\UserRepositoryQueries.cs">
-        <DependentUpon>UserRepository.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Repositories\SessionRepositoryQueries.cs">
-        <DependentUpon>SessionRepository.cs</DependentUpon>
-      </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Repositories\Interfaces\" />
+        <Compile Update="Repositories\UserRepositoryQueries.cs">
+            <DependentUpon>UserRepository.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Repositories\SessionRepositoryQueries.cs">
+            <DependentUpon>SessionRepository.cs</DependentUpon>
+        </Compile>
     </ItemGroup>
 
 </Project>

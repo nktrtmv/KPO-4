@@ -1,13 +1,12 @@
 using System.Text;
 
-using Application.User.Commands.Contracts;
-using Application.User.Models;
-
 using MediatR;
 
+using UserAuthenticationService.Application.User.Commands.Contracts;
+using UserAuthenticationService.Application.User.Models;
 using UserAuthenticationService.Domain.Abstractions.Services;
 
-namespace Application.User.Commands;
+namespace UserAuthenticationService.Application.User.Commands;
 
 public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, RegisterUserResult>
 {

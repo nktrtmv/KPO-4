@@ -1,11 +1,10 @@
-using Application.User.Commands.Contracts;
-using Application.User.Models;
-using Application.User.Queries.Contracts;
-
 using MediatR;
 
 using Microsoft.AspNetCore.Mvc;
 
+using UserAuthenticationService.Application.User.Commands.Contracts;
+using UserAuthenticationService.Application.User.Models;
+using UserAuthenticationService.Application.User.Queries.Contracts;
 using UserAuthenticationService.Contracts.Requests;
 using UserAuthenticationService.Contracts.Responses;
 using UserAuthenticationService.Contracts.Validators;
@@ -73,7 +72,7 @@ public sealed class UserAuthenticationController : ControllerBase
                 ? Ok(new LogInUserResponse("success"))
                 : BadRequest("Cant log in this account, are you sure that you entered right email and password?");
         }
-        catch (Exception ex)
+        catch
         {
             return BadRequest("Cant log in this account, are you sure that you entered right email and password?");
         }

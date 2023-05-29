@@ -1,3 +1,3 @@
 namespace UserAuthenticationService.Contracts.Responses;
 
-public record LogOutUserResponse();
+public record LogOutUserResponse;

@@ -2,10 +2,10 @@ using System.Transactions;
 
 using Npgsql;
 
-using UserAuthenticationService.Infrastructure.Abstractions.Repositories;
-using UserAuthenticationService.Infrastructure.Settings;
+using OrderProcessingService.Infrastructure.Abstractions.Repositories;
+using OrderProcessingService.Infrastructure.Settings;
 
-namespace UserAuthenticationService.Infrastructure.Repositories;
+namespace OrderProcessingService.Infrastructure.Repositories.Abstractions;
 
 public abstract class BaseRepository : IDbRepository
 {
@@ -18,7 +18,9 @@ public abstract class BaseRepository : IDbRepository
 
     protected async Task<NpgsqlConnection> GetAndOpenConnection()
     {
-        var connection = new NpgsqlConnection(_dalSettings.ConnectionString);
+        const string conn = "User ID=orders_user;Password=orders_password;Host=localhost;Port=4321;Database=orders_database;Pooling=true;";
+
+        var connection = new NpgsqlConnection(conn);
         await connection.OpenAsync();
         await connection.ReloadTypesAsync();
 

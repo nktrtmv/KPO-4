@@ -1,3 +1,5 @@
+using Dapper;
+
 using FluentMigrator.Runner;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -16,18 +18,18 @@ public static class Postgres
     private static readonly INpgsqlNameTranslator STranslator = new NpgsqlSnakeCaseNameTranslator();
 
     /// <summary>
-    /// Map DAL models to composite types (enables UNNEST)
+    ///     Map DAL models to composite types (enables UNNEST)
     /// </summary>
     public static void MapCompositeTypes()
     {
         INpgsqlTypeMapper mapper = NpgsqlConnection.GlobalTypeMapper;
-        Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
+        DefaultTypeMap.MatchNamesWithUnderscores = true;
         mapper.MapComposite<UserEntity>("user_type", STranslator);
         mapper.MapComposite<SessionEntity>("session_type", STranslator);
     }
 
     /// <summary>
-    /// Add migration infrastructure
+    ///     Add migration infrastructure
     /// </summary>
     public static void AddMigrations(IServiceCollection services)
     {

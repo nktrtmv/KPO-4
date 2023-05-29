@@ -1,17 +1,16 @@
-using Application.User.Models;
-using Application.User.Queries.Contracts;
-
 using MediatR;
 
+using UserAuthenticationService.Application.User.Models;
+using UserAuthenticationService.Application.User.Queries.Contracts;
 using UserAuthenticationService.Domain.Abstractions.Models;
 using UserAuthenticationService.Domain.Abstractions.Services;
 
-namespace Application.User.Queries;
+namespace UserAuthenticationService.Application.User.Queries;
 
 public class GetUserInfoQueryHandler : IRequestHandler<GetUserInfoQuery, GetUserInfoResult>
 {
-    private readonly IUserService _userService;
     private readonly ISessionService _sessionService;
+    private readonly IUserService _userService;
 
     public GetUserInfoQueryHandler(IUserService userService, ISessionService sessionService)
     {
@@ -21,7 +20,7 @@ public class GetUserInfoQueryHandler : IRequestHandler<GetUserInfoQuery, GetUser
 
     public async Task<GetUserInfoResult> Handle(GetUserInfoQuery request, CancellationToken cancellationToken)
     {
-        UserAuthenticationService.Domain.Abstractions.Models.User user = await _userService.Get(
+        Domain.Abstractions.Models.User user = await _userService.Get(
             request.Email,
             cancellationToken);
 
