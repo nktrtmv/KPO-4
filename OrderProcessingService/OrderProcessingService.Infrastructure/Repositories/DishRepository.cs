@@ -23,10 +23,10 @@ public sealed class DishRepository : BaseRepository, IDishRepository
 
         var sqlParams = new
         {
-            Name = dish.Name,
-            Description = dish.Description,
-            Price = dish.Price,
-            Quantity = dish.Quantity
+            dish.Name,
+            dish.Description,
+            dish.Price,
+            dish.Quantity
         };
 
         await connection.ExecuteAsync(

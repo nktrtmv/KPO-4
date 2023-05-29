@@ -2,7 +2,6 @@ using Microsoft.Extensions.DependencyInjection;
 
 using OrderProcessingService.Domain.Abstractions.Services;
 using OrderProcessingService.Domain.Services;
-using OrderProcessingService.Infrastructure.Abstractions.Repositories;
 
 namespace OrderProcessingService.Application.Extensions;
 

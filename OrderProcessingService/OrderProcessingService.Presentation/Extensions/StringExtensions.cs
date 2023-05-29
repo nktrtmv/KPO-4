@@ -15,7 +15,7 @@ public static class StringExtensions
 
         for (var i = 1; i < text.Length; ++i)
         {
-            var c = text[i];
+            char c = text[i];
 
             if (char.IsUpper(c))
             {

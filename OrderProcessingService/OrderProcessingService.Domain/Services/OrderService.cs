@@ -1,5 +1,3 @@
-
-using OrderProcessingService.Domain.Abstractions.Models;
 using OrderProcessingService.Domain.Abstractions.Services;
 using OrderProcessingService.Infrastructure.Abstractions.Entities;
 using OrderProcessingService.Infrastructure.Abstractions.Repositories;

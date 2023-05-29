@@ -3,15 +3,14 @@ using MediatR;
 using OrderProcessingService.Application.Order.Commands.Contracts.Requests;
 using OrderProcessingService.Domain.Abstractions.Models;
 using OrderProcessingService.Domain.Abstractions.Services;
-using OrderProcessingService.Infrastructure.Abstractions.Repositories;
 
 namespace OrderProcessingService.Application.Order.Commands;
 
 public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand>
 {
     private readonly IDishService _dishService;
-    private readonly IOrderService _orderService;
     private readonly IOrderDishService _orderDishService;
+    private readonly IOrderService _orderService;
 
     public CreateOrderCommandHandler(IDishService dishService, IOrderService orderService, IOrderDishService orderDishService)
     {
@@ -28,7 +27,7 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand>
 
         foreach (DishQ dish in request.Dishes)
         {
-            for (int i = 0; i < dish.Quantity; i++)
+            for (var i = 0; i < dish.Quantity; i++)
             {
                 await _dishService.DeleteDish(dish.Id, cancellationToken);
             }

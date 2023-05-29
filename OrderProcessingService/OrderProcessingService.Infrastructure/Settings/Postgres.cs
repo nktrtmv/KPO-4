@@ -1,7 +1,8 @@
+using Dapper;
+
 using FluentMigrator.Runner;
 
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 using Npgsql;
 using Npgsql.NameTranslation;
@@ -16,19 +17,19 @@ public static class Postgres
     private static readonly INpgsqlNameTranslator STranslator = new NpgsqlSnakeCaseNameTranslator();
 
     /// <summary>
-    /// Map DAL models to composite types (enables UNNEST)
+    ///     Map DAL models to composite types (enables UNNEST)
     /// </summary>
     public static void MapCompositeTypes()
     {
         INpgsqlTypeMapper mapper = NpgsqlConnection.GlobalTypeMapper;
-        Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
+        DefaultTypeMap.MatchNamesWithUnderscores = true;
         mapper.MapComposite<DishEntity>("dish_type", STranslator);
         mapper.MapComposite<OrderEntity>("order_type", STranslator);
         mapper.MapComposite<OrderDishEntity>("order_dish_type", STranslator);
     }
 
     /// <summary>
-    /// Add migration infrastructure
+    ///     Add migration infrastructure
     /// </summary>
     public static void AddMigrations(IServiceCollection services)
     {
@@ -36,11 +37,7 @@ public static class Postgres
         services.AddFluentMigratorCore()
             .ConfigureRunner(
                 rb => rb.AddPostgres()
-                    .WithGlobalConnectionString(
-                        s =>
-                        {
-                            return conn;
-                        })
+                    .WithGlobalConnectionString(s => { return conn; })
                     .ScanIn(typeof(Postgres).Assembly)
                     .For.Migrations())
             .AddLogging(lb => lb.AddFluentMigratorConsole());

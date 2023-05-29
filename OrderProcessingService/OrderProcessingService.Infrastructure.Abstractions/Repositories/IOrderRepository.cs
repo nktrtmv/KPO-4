@@ -1,5 +1,4 @@
 using OrderProcessingService.Infrastructure.Abstractions.Entities;
-using OrderProcessingService.Infrastructure.Abstractions.Models;
 
 namespace OrderProcessingService.Infrastructure.Abstractions.Repositories;
 

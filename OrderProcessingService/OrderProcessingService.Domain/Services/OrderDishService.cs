@@ -37,7 +37,7 @@ public sealed class OrderDishService : IOrderDishService
 
     public async Task<int[]> GetDishesIds(int orderId, CancellationToken cancellationToken)
     {
-        var ids = await _orderDishRepository.GetDishesIds(orderId, cancellationToken);
+        int[] ids = await _orderDishRepository.GetDishesIds(orderId, cancellationToken);
 
         return ids;
     }

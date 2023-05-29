@@ -1,5 +1,3 @@
-using OrderProcessingService.Domain.Abstractions.Models;
-
 namespace OrderProcessingService.Domain.Abstractions.Services;
 
 public interface IOrderService

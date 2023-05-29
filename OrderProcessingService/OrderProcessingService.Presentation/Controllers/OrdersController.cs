@@ -1,17 +1,16 @@
 using MediatR;
 
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 using OrderProcessingService.Application.Order.Commands.Contracts.Requests;
 using OrderProcessingService.Application.Order.Queries.Contracts.Requests;
 using OrderProcessingService.Application.Order.Queries.Contracts.Results;
-using OrderProcessingService.Domain.Abstractions.Models;
 using OrderProcessingService.Presentation.Contracts.Requests.Orders;
 using OrderProcessingService.Presentation.Contracts.Responses.Orders;
+using OrderProcessingService.Presentation.Models;
 
-using SlimDish = OrderProcessingService.Presentation.Models.SlimDish;
+using DishQ = OrderProcessingService.Domain.Abstractions.Models.DishQ;
 
 namespace OrderProcessingService.Presentation.Controllers;
 

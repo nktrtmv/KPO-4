@@ -8,20 +8,20 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <None Update="appsettings.Development.json">
-        <DependentUpon>appsettings.json</DependentUpon>
-      </None>
+        <None Update="appsettings.Development.json">
+            <DependentUpon>appsettings.json</DependentUpon>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="MediatR" Version="12.0.1" />
-      <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+        <PackageReference Include="MediatR" Version="12.0.1"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\OrderProcessingService.Application\OrderProcessingService.Application.csproj" />
-        <ProjectReference Include="..\OrderProcessingService.Domain.Abstractions\OrderProcessingService.Domain.Abstractions.csproj" />
-        <ProjectReference Include="..\OrderProcessingService.Infrastructure\OrderProcessingService.Infrastructure.csproj" />
+        <ProjectReference Include="..\OrderProcessingService.Application\OrderProcessingService.Application.csproj"/>
+        <ProjectReference Include="..\OrderProcessingService.Domain.Abstractions\OrderProcessingService.Domain.Abstractions.csproj"/>
+        <ProjectReference Include="..\OrderProcessingService.Infrastructure\OrderProcessingService.Infrastructure.csproj"/>
     </ItemGroup>
 
 </Project>

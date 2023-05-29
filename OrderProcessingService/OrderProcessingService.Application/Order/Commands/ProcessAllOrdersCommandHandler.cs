@@ -7,8 +7,8 @@ namespace OrderProcessingService.Application.Order.Commands;
 
 public class ProcessAllOrdersCommandHandler : IRequestHandler<ProcessAllOrdersCommand>
 {
-    private readonly IOrderService _orderService;
     private readonly IOrderDishService _orderDishService;
+    private readonly IOrderService _orderService;
 
     public ProcessAllOrdersCommandHandler(IOrderService orderService, IOrderDishService orderDishService)
     {
@@ -18,7 +18,7 @@ public class ProcessAllOrdersCommandHandler : IRequestHandler<ProcessAllOrdersCo
 
     public async Task Handle(ProcessAllOrdersCommand request, CancellationToken cancellationToken)
     {
-        var ordersIds = await _orderService.ProcessAllOrders(DateTime.UtcNow, cancellationToken);
+        int[] ordersIds = await _orderService.ProcessAllOrders(DateTime.UtcNow, cancellationToken);
 
         await _orderDishService.DeleteDishes(ordersIds, cancellationToken);
     }

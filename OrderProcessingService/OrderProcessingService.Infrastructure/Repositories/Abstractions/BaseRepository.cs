@@ -16,17 +16,6 @@ public abstract class BaseRepository : IDbRepository
         _dalSettings = dalSettings;
     }
 
-    protected async Task<NpgsqlConnection> GetAndOpenConnection()
-    {
-        const string conn = "User ID=orders_user;Password=orders_password;Host=localhost;Port=4321;Database=orders_database;Pooling=true;";
-
-        var connection = new NpgsqlConnection(conn);
-        await connection.OpenAsync();
-        await connection.ReloadTypesAsync();
-
-        return connection;
-    }
-
     public TransactionScope CreateTransactionScope(IsolationLevel level = IsolationLevel.ReadCommitted)
     {
         return new TransactionScope(
@@ -37,5 +26,16 @@ public abstract class BaseRepository : IDbRepository
                 Timeout = TimeSpan.FromSeconds(5)
             },
             TransactionScopeAsyncFlowOption.Enabled);
+    }
+
+    protected async Task<NpgsqlConnection> GetAndOpenConnection()
+    {
+        const string conn = "User ID=orders_user;Password=orders_password;Host=localhost;Port=4321;Database=orders_database;Pooling=true;";
+
+        var connection = new NpgsqlConnection(conn);
+        await connection.OpenAsync();
+        await connection.ReloadTypesAsync();
+
+        return connection;
     }
 }

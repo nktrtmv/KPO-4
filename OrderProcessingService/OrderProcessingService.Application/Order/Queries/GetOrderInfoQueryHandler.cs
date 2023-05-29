@@ -2,17 +2,15 @@ using MediatR;
 
 using OrderProcessingService.Application.Order.Queries.Contracts.Requests;
 using OrderProcessingService.Application.Order.Queries.Contracts.Results;
-using OrderProcessingService.Domain.Abstractions.Models;
 using OrderProcessingService.Domain.Abstractions.Services;
-using OrderProcessingService.Infrastructure.Abstractions.Repositories;
 
 namespace OrderProcessingService.Application.Order.Queries;
 
 public class GetOrderInfoQueryHandler : IRequestHandler<GetOrderInfoQuery, GetOrderInfoQueryResult>
 {
     private readonly IDishService _dishService;
-    private readonly IOrderService _orderService;
     private readonly IOrderDishService _orderDishService;
+    private readonly IOrderService _orderService;
 
     public GetOrderInfoQueryHandler(IOrderService orderService, IOrderDishService orderDishService, IDishService dishService)
     {
@@ -34,7 +32,7 @@ public class GetOrderInfoQueryHandler : IRequestHandler<GetOrderInfoQuery, GetOr
 
         Domain.Abstractions.Models.Dish[] allDishes = await _dishService.GetAllDishes(cancellationToken);
 
-        var dishesNames = allDishes.Where(d => ids.Contains(d.Id)).Select(d => d.Name).ToArray();
+        string[] dishesNames = allDishes.Where(d => ids.Contains(d.Id)).Select(d => d.Name).ToArray();
 
         return new GetOrderInfoQueryResult(dishesNames, status);
     }

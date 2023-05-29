@@ -5,7 +5,6 @@ using Microsoft.Extensions.Options;
 using Npgsql;
 
 using OrderProcessingService.Infrastructure.Abstractions.Entities;
-using OrderProcessingService.Infrastructure.Abstractions.Models;
 using OrderProcessingService.Infrastructure.Abstractions.Repositories;
 using OrderProcessingService.Infrastructure.Repositories.Abstractions;
 using OrderProcessingService.Infrastructure.Settings;
@@ -24,10 +23,10 @@ public sealed class OrderDishRepository : BaseRepository, IOrderDishRepository
 
         var sqlParams = new
         {
-            OrderId = orderDish.OrderId,
-            DishId = orderDish.DishId,
-            Quantity = orderDish.Quantity,
-            Price = orderDish.Price
+            orderDish.OrderId,
+            orderDish.DishId,
+            orderDish.Quantity,
+            orderDish.Price
         };
 
         await connection.ExecuteAsync(

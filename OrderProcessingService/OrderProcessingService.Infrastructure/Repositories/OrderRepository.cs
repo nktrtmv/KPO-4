@@ -5,7 +5,6 @@ using Microsoft.Extensions.Options;
 using Npgsql;
 
 using OrderProcessingService.Infrastructure.Abstractions.Entities;
-using OrderProcessingService.Infrastructure.Abstractions.Models;
 using OrderProcessingService.Infrastructure.Abstractions.Repositories;
 using OrderProcessingService.Infrastructure.Repositories.Abstractions;
 using OrderProcessingService.Infrastructure.Settings;
@@ -24,11 +23,11 @@ public sealed class OrderRepository : BaseRepository, IOrderRepository
 
         var sqlParams = new
         {
-            UserId = order.UserId,
-            Status = order.Status,
-            SpecialRequests = order.SpecialRequests,
-            CreatedAt = order.CreatedAt,
-            UpdatedAt = order.UpdatedAt
+            order.UserId,
+            order.Status,
+            order.SpecialRequests,
+            order.CreatedAt,
+            order.UpdatedAt
         };
 
         int id = await connection.ExecuteAsync(
@@ -65,7 +64,7 @@ public sealed class OrderRepository : BaseRepository, IOrderRepository
 
         var sqlParams = new
         {
-            Id = orderId,
+            Id = orderId
         };
 
         IEnumerable<OrderEntity>? orders = await connection.QueryAsync<OrderEntity>(
